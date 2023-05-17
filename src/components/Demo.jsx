@@ -29,6 +29,30 @@ const Demo = () => {
     const { data } = await getSummary({ articleUrl: article.url });
 
     if (data?.summary) {
+      const urlDatas = {
+        source: "en",
+        target: "ko",
+        text: data.summary,
+      };
+      const formBody = Object.keys(urlDatas)
+        .map(
+          (key) =>
+            encodeURIComponent(key) + "=" + encodeURIComponent(urlDatas[key])
+        )
+        .join("&");
+      const transformData = await fetch(
+        "https://openapi.naver.com/v1/papago/n2mt",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Naver-Client-Id": "TX7M8RBuu62Kc7oa85iI",
+            "X-Naver-Client-Secret": "vsK4bbM0_z",
+          },
+          body: formBody,
+        }
+      );
+      console.log(transformData);
       const newArticle = { ...article, summary: data.summary };
 
       const updatedAllArticles = [newArticle, ...allArticles];
