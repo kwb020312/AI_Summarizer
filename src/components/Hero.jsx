@@ -16,10 +16,10 @@ const Hero = () => {
       <h1 className="head_text">
         <span className="orange_gradient">OpenAI GPT-4</span>를 활용하여
         <br className="max-md:hidden" />
-        복잡한 문장을 요약하세요!
+        외부 사이트를 요약하세요!
       </h1>
       <h2 className="desc">
-        복잡한 문장을 명확하고 간결한 문장으로 변환해보세요!
+        복잡한 문장을 명확하고 간결한 문장으로 변환해 한눈에 보세요!
       </h2>
     </header>
   );
