@@ -133,9 +133,14 @@ const Demo = () => {
                 콘텐츠 <span className="blue_gradient">요약</span>
               </h2>
               <div className="summary_box">
-                <p className="font-medium text-sm text-gray-700">
-                  {article.summary}
-                </p>
+                {article.summary.split(".").map((a, aindex) => (
+                  <p
+                    key={`detail-${aindex}`}
+                    className="font-medium text-sm text-gray-700"
+                  >
+                    {a}.
+                  </p>
+                ))}
               </div>
             </div>
           )
