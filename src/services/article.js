@@ -12,11 +12,13 @@ export const articleApi = createApi({
         "X-RapidAPI-Host",
         "article-extractor-and-summarizer.p.rapidapi.com"
       );
+
+      return headers;
     },
   }),
   endpoints: (builder) => ({
     getSummary: builder.query({
-      query: (params) => `test`,
+      query: (params) => `/summarize?url=${params.articleUrl}&length=3`,
     }),
   }),
 });
