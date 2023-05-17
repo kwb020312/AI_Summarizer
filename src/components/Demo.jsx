@@ -26,41 +26,33 @@ const Demo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const { data } = await getSummary({ articleUrl: article.url });
 
     if (data?.summary) {
-      const urlDatas = {
-        source: "en",
-        target: "ko",
-        text: data.summary,
-      };
-      const formBody = Object.keys(urlDatas)
-        .map(
-          (key) =>
-            encodeURIComponent(key) + "=" + encodeURIComponent(urlDatas[key])
-        )
-        .join("&");
-      const transformData = await fetch(
-        "https://openapi.naver.com/v1/papago/n2mt",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "X-Naver-Client-Id": "TX7M8RBuu62Kc7oa85iI",
-            "X-Naver-Client-Secret": "vsK4bbM0_z",
-          },
-          body: formBody,
-        }
-      );
-      console.log(transformData);
-      const newArticle = { ...article, summary: data.summary };
+      fetch("/api/v1/dalle/papago", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: data.summary,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          return;
+          const newArticle = { ...article, summary: res };
 
-      const updatedAllArticles = [newArticle, ...allArticles];
+          const updatedAllArticles = [newArticle, ...allArticles];
 
-      setArticle(newArticle);
-      setAllArticles(updatedAllArticles);
+          setArticle(newArticle);
+          setAllArticles(updatedAllArticles);
 
-      localStorage.setItem("articles", JSON.stringify(updatedAllArticles));
+          localStorage.setItem("articles", JSON.stringify(updatedAllArticles));
+        })
+        .catch((err) => alert(err));
     }
   };
 
