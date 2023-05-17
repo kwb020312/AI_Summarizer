@@ -41,9 +41,7 @@ const Demo = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
-          return;
-          const newArticle = { ...article, summary: res };
+          const newArticle = { ...article, summary: res.result };
 
           const updatedAllArticles = [newArticle, ...allArticles];
 
