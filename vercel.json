@@ -5,10 +5,5 @@
       "destination": "https://port-0-ai-image-generator-1093j2alg6ohvds.sel3.cloudtype.app/api/$1"
     },
     { "source": "/(.*)", "destination": "/$1" }
-  ],
-  "proxy": {
-    "/api": {
-      "destination": "https://port-0-ai-image-generator-1093j2alg6ohvds.sel3.cloudtype.app/api"
-    }
-  }
+  ]
 }
